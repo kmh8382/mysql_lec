@@ -34,7 +34,27 @@ ALTER TABLE tbl_order AUTO_INCREMENT = 1000;
 
 
 
+-- 연습문제
+DROP TABLE IF EXISTS tbl_customer CASCADE;
+DROP TABLE IF EXISTS tbl_bank CASCADE;
 
+CREATE TABLE IF NOT EXISTS tbl_bank
+(
+    bank_id VARCHAR(20) NOT NULL,
+    bank_name VARCHAR(30),
+    CONSTRAINT pk_bank PRIMARY KEY(bank_id)
+) ENGINE=INNODB;
+
+CREATE TABLE IF NOT EXISTS tbl_customer
+(
+    cust_id INT NOT NULL AUTO_INCREMENT,
+    cust_name VARCHAR(30) NOT NULL,
+    phone VARCHAR(30) UNIQUE,
+    age SMALLINT CHECK (age BETWEEN 0 AND 100),
+    bank_id VARCHAR(20),
+    CONSTRAINT pk_customer PRIMARY KEY(cust_id),
+    CONSTRAINT fk_bank_customer FOREIGN KEY(bank_id) REFERENCES tbl_bank(bank_id)
+) ENGINE=INNODB;
 
 
 
